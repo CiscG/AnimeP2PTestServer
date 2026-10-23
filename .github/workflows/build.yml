@@ -10,7 +10,11 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-latest
+    # Aqui está a mágica: o robô vai rodar nos dois sistemas operacionais
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Baixar o código
@@ -25,7 +29,15 @@ jobs:
       - name: Instalar Dependências
         run: npm ci
 
+      # Dependências nativas do Linux para compilar o AppImage/deb e o módulo de áudio
+      - name: Instalar dependências Linux (Apenas no Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential python3 libpulse-dev libpipewire-0.3-dev libx11-dev rpm fakeroot dpkg
+
       - name: Compilar e Publicar
-        run: npx electron-builder --win --publish always
+        # O electron-builder vai detectar automaticamente o sistema e gerar o .exe (Win) ou .AppImage/.deb (Linux)
+        run: npx electron-builder --publish always
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
