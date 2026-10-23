@@ -9,8 +9,8 @@
     "dist": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^28.0.0",
-    "electron-builder": "^24.0.0"
+    "electron": "^45.0.0",
+    "electron-builder": "^26.15.3"
   },
   "dependencies": {
     "electron-native-screenshare": "^1.0.0"
@@ -19,7 +19,9 @@
     "appId": "com.ciscg.animep2p",
     "productName": "AnimeP2P",
     "win": {
-      "target": ["nsis"]
+      "target": [
+        "nsis"
+      ]
     },
     "nsis": {
       "oneClick": false,
