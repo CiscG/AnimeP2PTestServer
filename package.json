@@ -9,8 +9,8 @@
     "dist": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^45.0.0",
-    "electron-builder": "^26.15.3"
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0"
   },
   "dependencies": {
     "electron-native-screenshare": "^1.0.0"
@@ -19,15 +19,17 @@
     "appId": "com.ciscg.animep2p",
     "productName": "AnimeP2P",
     "win": {
-      "target": [
-        "nsis"
-      ]
+      "target": ["nsis"]
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "artifactName": "${productName} Setup ${version}.${ext}"
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Network",
+      "maintainer": "CiscG",
+      "desktopName": "animep2p.desktop"
     },
     "publish": [
       {
